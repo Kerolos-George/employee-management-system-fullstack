@@ -52,11 +52,21 @@ class DepartmentSerializer(serializers.ModelSerializer):
 class EmployeeSerializer(serializers.ModelSerializer):
     days_employed = serializers.IntegerField(read_only=True)
     user = UserSerializer(read_only=True)
+    role = serializers.SerializerMethodField()  # Add role
+    email = serializers.SerializerMethodField()  # Add email
 
     class Meta:
         model = Employee
         fields = '__all__'
         read_only_fields = ('user', 'company')
+
+    # Method to get the role from the related User model
+    def get_role(self, obj):
+        return obj.user.role  # Assuming 'role' is a field in the User model
+
+    # Method to get the email from the related User model
+    def get_email(self, obj):
+        return obj.user.email  # Assuming 'email' is a field in the User model
 
 
 class EmployeeCreateSerializer(serializers.ModelSerializer):
