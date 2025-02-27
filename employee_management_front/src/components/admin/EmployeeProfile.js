@@ -9,6 +9,7 @@ const EmployeeProfile = ({ employeeId, onBack }) => {
   const [error, setError] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({});
+  const [showConfirmDelete, setShowConfirmDelete] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -54,7 +55,8 @@ const EmployeeProfile = ({ employeeId, onBack }) => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('access_token');
-      await axios.patch(`http://localhost:8000/api/employees/${employeeId}/`, formData, {
+      const { email, ...dataToSubmit } = formData;
+      await axios.patch(`http://localhost:8000/api/employees/${employeeId}/`, dataToSubmit, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -63,6 +65,21 @@ const EmployeeProfile = ({ employeeId, onBack }) => {
       setIsEditing(false);
     } catch (err) {
       console.error(err);
+    }
+  };
+
+  const handleDeleteEmployee = async () => {
+    try {
+      const token = localStorage.getItem('access_token');
+      await axios.delete(`http://localhost:8000/api/employees/${employeeId}/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      onBack(); // Go back to the employees list after successful deletion
+    } catch (err) {
+      console.error(err);
+      setError('Failed to delete employee');
     }
   };
 
@@ -77,7 +94,6 @@ const EmployeeProfile = ({ employeeId, onBack }) => {
       {isEditing ? (
         <form className="profile-form" onSubmit={handleSubmit}>
           <label>Name: <input type="text" name="name" value={formData.name} onChange={handleChange} /></label>
-          <label>Email: <input type="email" name="email" value={formData.email} onChange={handleChange} /></label>
           <label>Role: <input type="text" name="role" value={formData.role} onChange={handleChange} /></label>
           <label>Status: <input type="text" name="status" value={formData.status} onChange={handleChange} /></label>
           <label>Mobile Number: <input type="text" name="mobile_number" value={formData.mobile_number} onChange={handleChange} /></label>
@@ -100,6 +116,30 @@ const EmployeeProfile = ({ employeeId, onBack }) => {
           <p><strong>Designation:</strong> {employee.designation}</p>
           <p><strong>Hired On:</strong> {employee.hired_on}</p>
           <button className="edit-button" onClick={() => setIsEditing(true)}>Edit Profile</button>
+          <button className="delete-button" onClick={() => setShowConfirmDelete(true)}>Delete Employee</button>
+        </div>
+      )}
+
+      {showConfirmDelete && (
+        <div className="delete-modal">
+          <div className="delete-modal-content">
+            <h3>Confirm Delete</h3>
+            <p>Are you sure you want to delete {employee.name}? This action cannot be undone.</p>
+            <div className="form-buttons">
+              <button 
+                className="cancel-button" 
+                onClick={() => setShowConfirmDelete(false)}
+              >
+                Cancel
+              </button>
+              <button 
+                className="delete-button" 
+                onClick={handleDeleteEmployee}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

@@ -1,0 +1,159 @@
+/* EmployeeProfile.css */
+
+.employee-profile {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  h3 {
+    color: #555;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+  }
+  
+  .profile-details {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .profile-section {
+    margin-bottom: 20px;
+  }
+  
+  .profile-details p {
+    font-size: 16px;
+    margin: 10px 0;
+    padding: 8px;
+    background: #f7f7f7;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .profile-details p strong {
+    font-weight: bold;
+    margin-right: 10px;
+    min-width: 120px;
+    display: inline-block;
+  }
+  
+  .back-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    background: #6c757d;
+    color: white;
+    transition: background-color 0.3s;
+  }
+  
+  .back-button:hover {
+    background: #5a6268;
+  }
+  
+  .profile-image-container {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #f0f0f0;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  }
+  
+  .skills-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  
+  .skill-tag {
+    background-color: #e9ecef;
+    color: #495057;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 14px;
+  }
+  
+  .employee-bio {
+    line-height: 1.6;
+    white-space: pre-line;
+    padding: 10px;
+    background: #f7f7f7;
+    border-radius: 4px;
+  }
+  
+  .loading-spinner {
+    text-align: center;
+    margin: 40px 0;
+    font-style: italic;
+    color: #666;
+  }
+  
+  .error-container {
+    text-align: center;
+    margin: 30px 0;
+  }
+  
+  .error-message {
+    color: #dc3545;
+    margin-bottom: 15px;
+  }
+  
+  .retry-button {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .retry-button:hover {
+    background: #218838;
+  }
+  
+  .no-data-message {
+    text-align: center;
+    margin: 40px 0;
+    color: #666;
+    font-style: italic;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 600px) {
+    .employee-profile {
+      padding: 15px;
+      margin: 10px;
+    }
+    
+    .profile-details p {
+      flex-direction: column;
+    }
+    
+    .profile-details p strong {
+      margin-bottom: 5px;
+    }
+  }

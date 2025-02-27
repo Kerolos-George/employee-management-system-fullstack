@@ -1,22 +1,24 @@
+// src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './components/login/Login';
 import AdminDashboard from './components/admin/AdminDashboard';
-import EmployeeProfile from './components/admin/EmployeeProfile';
+import ManagerDashboard from './components/manager/ManagerDashboard';
+import EmployeeDashboard  from './components/employee/EmployeeDashboard';
+// Import any other components...
 
-const App = () => {
-  const isAuthenticated = !!localStorage.getItem('access_token'); // Check if user is logged in
-
+function App() {
   return (
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={isAuthenticated ? <AdminDashboard /> : <Navigate to="/login" />} />
-        <Route path="/profile/:employeeId" element={isAuthenticated ? <EmployeeProfile /> : <Navigate to="/login" />} />
-        <Route path="/" element={<Navigate to={isAuthenticated ? "/dashboard" : "/login"} />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/manager/dashboard" element={<ManagerDashboard />} />
+        <Route path="/employee/dashboard" element={<EmployeeDashboard />} />
+        <Route path="/" element={<Navigate to="/login" replace />} />
       </Routes>
     </Router>
   );
-};
+}
 
 export default App;

@@ -118,6 +118,13 @@ class EmployeeCreateSerializer(serializers.ModelSerializer):
                 raise ValidationError({
                     'company': 'You can only create employees for your own company'
                 })
+                
+        # Only admin can assign admin role
+        if 'role' in data and data['role'] == 'admin':
+            if not user or user.role != 'admin':
+                raise ValidationError({
+                    'role': 'Only admin can assign admin role'
+                })        
 
         return data
 
@@ -175,6 +182,14 @@ class EmployeeUpdateSerializer(serializers.ModelSerializer):
                 'role': 'Only admin or manager can update role'
             })
             
+            
+        # Only admin can update role to admin
+        if 'role' in data and data['role'] == 'admin':
+            if not user or user.role != 'admin':
+                raise ValidationError({
+                    'role': 'Only admin can assign admin role'
+                })    
+                
         # Validate email uniqueness if email is being updated
         if 'email' in data:
             if User.objects.filter(email=data['email']).exclude(id=user.id).exists():
@@ -185,23 +200,24 @@ class EmployeeUpdateSerializer(serializers.ModelSerializer):
         return data
         
     def update(self, instance, validated_data):
-        # Update User fields if present
-        user = instance.user
-        if 'email' in validated_data:
-            user.email = validated_data.pop('email')
-        if 'name' in validated_data:
-            name = validated_data.pop('name')
-            name_parts = name.split()
-            instance.user.first_name = name_parts[0] if name_parts else ''
-            instance.user.last_name = ' '.join(name_parts[1:]) if len(name_parts) > 1 else ''
-            instance.user.save()
-        if 'role' in validated_data:
-            user.role = validated_data.pop('role')
-        user.save()
+            # Update User fields if present
+            user = instance.user
+            if 'email' in validated_data:
+                user.email = validated_data.pop('email')
+            if 'name' in validated_data:
+                name = validated_data.pop('name')
+                name_parts = name.split()
+                user.first_name = name_parts[0] if name_parts else ''
+                user.last_name = ' '.join(name_parts[1:]) if len(name_parts) > 1 else ''
+                instance.name = name
+                
+            if 'role' in validated_data:
+                user.role = validated_data.pop('role')
+            user.save()
+                
+            # Update Employee fields
+            for attr, value in validated_data.items():
+                setattr(instance, attr, value)
+            instance.save()
             
-        # Update Employee fields
-        for attr, value in validated_data.items():
-            setattr(instance, attr, value)
-        instance.save()
-        
-        return instance
+            return instance
