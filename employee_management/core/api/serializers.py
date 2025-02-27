@@ -1,12 +1,10 @@
-# serializers.py
 from rest_framework import serializers
 from rest_framework.serializers import ValidationError
 from core.models import Company, Department, Employee, User
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
-    username_field = 'email'  # Since we're using email for authentication
-
+    username_field = 'email'  
     def validate(self, attrs):
         data = super().validate(attrs)
         self.user.role = self.user.role
@@ -52,8 +50,8 @@ class DepartmentSerializer(serializers.ModelSerializer):
 class EmployeeSerializer(serializers.ModelSerializer):
     days_employed = serializers.IntegerField(read_only=True)
     user = UserSerializer(read_only=True)
-    role = serializers.SerializerMethodField()  # Add role
-    email = serializers.SerializerMethodField()  # Add email
+    role = serializers.SerializerMethodField() 
+    email = serializers.SerializerMethodField()  
 
     class Meta:
         model = Employee
@@ -62,11 +60,11 @@ class EmployeeSerializer(serializers.ModelSerializer):
 
     # Method to get the role from the related User model
     def get_role(self, obj):
-        return obj.user.role  # Assuming 'role' is a field in the User model
+        return obj.user.role  
 
     # Method to get the email from the related User model
     def get_email(self, obj):
-        return obj.user.email  # Assuming 'email' is a field in the User model
+        return obj.user.email  
 
 
 class EmployeeCreateSerializer(serializers.ModelSerializer):
@@ -79,8 +77,7 @@ class EmployeeCreateSerializer(serializers.ModelSerializer):
             'id', 'name', 'email', 'password', 'company', 'department',
             'mobile_number', 'address', 'designation', 'hired_on', 'status'
         )
-        # Remove company from read_only_fields since we need it in validated_data
-        # read_only_fields = ('company',)  
+  
 
     def validate(self, data):
         request = self.context.get('request')
