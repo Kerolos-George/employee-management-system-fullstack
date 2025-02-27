@@ -17,17 +17,17 @@ const EmployeeProfile = ({ employeeData, employeeId, onBack }) => {
       return;
     }
 
-    // Otherwise, fetch data if employeeId is provided
+
     if (employeeId) {
       fetchEmployeeDetails();
     } else {
-      // If neither employeeData nor employeeId is provided, try to fetch current user's profile
+     
       fetchCurrentUserProfile();
     }
   }, [employeeData, employeeId]);
 
   useEffect(() => {
-    // Fetch company and department details once employee data is available
+
     if (employee) {
       fetchCompanyAndDepartmentDetails();
     }

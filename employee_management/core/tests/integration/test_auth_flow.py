@@ -29,4 +29,4 @@ class AuthenticationFlowTests(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIn('access', response.data, "No access token in response")
         
-        # Rest of the test...
+   

@@ -1,4 +1,3 @@
-// src/components/admin/DepartmentCard.js
 import React, { useState } from 'react';
 
 const DepartmentCard = ({ department, onDelete, onUpdate, onClick }) => {

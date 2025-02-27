@@ -1,4 +1,3 @@
-// src/components/admin/forms/AddCompanyForm.js
 import React, { useState } from 'react';
 
 const AddCompanyForm = ({ onSubmit, onCancel }) => {

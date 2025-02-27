@@ -1,4 +1,3 @@
-// src/components/admin/EmployeeCard.js
 import React from 'react';
 
 const EmployeeCard = ({ employee, onClick }) => {

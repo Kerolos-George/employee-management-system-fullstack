@@ -1,11 +1,11 @@
-// src/App.js
+
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './components/login/Login';
 import AdminDashboard from './components/admin/AdminDashboard';
 import ManagerDashboard from './components/manager/ManagerDashboard';
 import EmployeeDashboard  from './components/employee/EmployeeDashboard';
-// Import any other components...
+
 
 function App() {
   return (

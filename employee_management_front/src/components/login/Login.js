@@ -1,4 +1,3 @@
-// src/components/Login.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -33,9 +32,9 @@ const Login = () => {
       } else if (user.role === 'manager') {
         navigate('/manager/dashboard');
       } else if (user.role === 'employee') {
-        navigate('/employee/dashboard'); // New route for employee dashboard
+        navigate('/employee/dashboard');
       } else {
-        navigate('/dashboard'); // Fallback
+        navigate('/dashboard'); 
       }
     } catch (err) {
       if (err.response && err.response.status === 401) {

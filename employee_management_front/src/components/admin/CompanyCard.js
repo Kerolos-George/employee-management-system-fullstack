@@ -1,4 +1,3 @@
-// src/components/admin/CompanyCard.js
 import React, { useState } from 'react';
 
 const CompanyCard = ({ company, onDelete, onUpdate, onClick }) => {
@@ -11,7 +10,7 @@ const CompanyCard = ({ company, onDelete, onUpdate, onClick }) => {
   };
 
   const handleCardClick = (e) => {
-    // Don't navigate if clicking on edit/delete buttons or while editing
+   
     if (isEditing || 
         e.target.tagName === 'BUTTON' || 
         e.target.closest('button') ||

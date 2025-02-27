@@ -76,7 +76,7 @@ const EmployeeProfile = ({ employeeId, onBack }) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      onBack(); // Go back to the employees list after successful deletion
+      onBack(); 
     } catch (err) {
       console.error(err);
       setError('Failed to delete employee');
